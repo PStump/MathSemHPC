@@ -6,6 +6,8 @@
 %
 %\documentclass[a4paper,12pt]{book}
 \documentclass[a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{geometry}
 \geometry{papersize={170mm,240mm},total={130mm,200mm}}
 \usepackage{ngerman}
@@ -101,6 +103,10 @@
 \def\chapterauthor#1{{\large #1}\bigskip\bigskip}
 % To compile a single article, create a file input.tex, which contains
 % a command to input your article
-\input input.tex
+
+\newcommand{\begriff}[1]{\textsc{#1}}
+
+\chapter{Informationssuche}
+\input eigenwert.tex
 
 \end{document}
