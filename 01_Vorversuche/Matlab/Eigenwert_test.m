@@ -1,3 +1,4 @@
+% eigs Funktion von http://www.tm-mathe.de/Themen/html/losung_von_matrizeneigenwertpr.html
 % Testmatrix
 %A = [3, 0 ; -1, 2];
 A = [-2, 1, 0, 0; 1, 4, 3, 0; 0, 3, 5, 6; 0, 0, 2, 3]
