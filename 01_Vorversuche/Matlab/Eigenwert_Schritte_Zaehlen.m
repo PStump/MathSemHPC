@@ -14,26 +14,27 @@ Schritt4 = 0;
 
 R = spdiags(floor((1000-1)*rand(m,2*a+1)+1),-a:a,m,m);
 
-
-tic; % Eigenvektor Berechnen ohne Bearbeitung über die ganze Matrix
 u = ones(1,m)';
 qq = abs(u(1:1));
 e = 0;
-for i = 1 : 1 : Iterationsschritte
-if e == 0
-u = (R*u) / norm(R*u);   % Eigenvektoren 
-Schritt = Schritt + 1;
-end
-if qq == abs(round(u(1:1)*1e6)*1e-6)
-e = 1;
-end
-qq = abs(round(u(1:1)*1e6)*1e-6);
-end
-E = u' * R * u;    % Betragsmässig grösseter Eigenwert
+
+tic; % Eigenvektor Berechnen ohne Bearbeitung über die ganze Matrix
+  for i = 1 : 1 : Iterationsschritte
+    if e == 0
+      u = (R*u) / norm(R*u);   % Eigenvektoren 
+      Schritt = Schritt + 1;
+    end
+	
+    if qq == abs(round(u(1:1)*1e6))
+      e = 1;
+    end
+    qq = abs(round(u(1:1)*1e6));
+  end
+  E = u' * R * u;    % Betragsmässig grösseter Eigenwert
 Zeit1 = toc;
 
 
-    tic; % Bearbeiten der Matrix
+tic; % Bearbeiten der Matrix
     for i=1 : mm : m
         eval(sprintf('P%d = R(i:ii, i:ii)',s));
         s = s + 1;
@@ -80,43 +81,44 @@ Zeit1 = toc;
         s = s + 1;
     end
     end
-    Bearbeitung = toc;
+Bearbeitung = toc;
 
 esse = u - eigenvektor;
 
 e = 0;
 qq = eigenvektor(1:1);
 tic; % Eigenvektor berechnen von der bearbeiteten Matrix
-for i = 1 : 1 : Iterationsschritte
+  for i = 1 : 1 : Iterationsschritte
     if e == 0
     eigenvektor = (R*eigenvektor) / norm(R*eigenvektor);
     Schritt2 = Schritt2 + 1;
     end
-    if qq == abs(round(eigenvektor(1:1)*1e6)*1e-6)
+    if qq == abs(round(eigenvektor(1:1)*1e6))
     e = 1;
     end
-    qq = abs(round(eigenvektor(1:1)*1e6)*1e-6); 
-end
-EE = eigenvektor' * R * eigenvektor;
+    qq = abs(round(eigenvektor(1:1)*1e6)); 
+  end
+  EE = eigenvektor' * R * eigenvektor;
 Zeit2 = toc;
 
 e = 0;
 qq = eigenvektor(1:1);
 eigenvektor2 = u;
 tic; % Eigenvektor berechnen von der bearbeiteten Matrix
-for i = 1 : 1 : Iterationsschritte
+  for i = 1 : 1 : Iterationsschritte
     if e == 0
     eigenvektor2 = (R*eigenvektor2) / norm(R*eigenvektor2);
     Schritt3 = Schritt3 + 1;
     end
-    if qq == abs(round(eigenvektor2(1:1)*1e6)*1e-6)
+    if qq == abs(round(eigenvektor2(1:1)*1e6))
     e = 1;
     end
-    qq = abs(round(eigenvektor2(1:1)*1e6)*1e-6);
-end
-EEE = eigenvektor' * R * eigenvektor;
+    qq = abs(round(eigenvektor2(1:1)*1e6));
+  end
+  EEE = eigenvektor' * R * eigenvektor;
 Zeit3 = toc;
-clc;
+
+%clc;
 
 Schritt
 Schritt2
@@ -127,4 +129,4 @@ Zeit3
 Bearbeitung
 max(abs(esse))
 
-clearvars;
+%clearvars;
