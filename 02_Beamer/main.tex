@@ -1,0 +1,68 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%         FILE:  main.tex
+%
+%        USAGE:  ---
+%
+%  DESCRIPTION:  This file is used for testing the beamer class.
+%
+%      OPTIONS:  see different input's below
+% REQUIREMENTS:  full LaTeX installations
+%         BUGS:  ---
+%        NOTES:  ---
+%       AUTHOR:  Pascal Stump, pascal-stump@bluewin.ch
+%      VERSION:  see git repo
+%      CREATED:  23.Apr.2014 - 22:06
+%     REVISION:  see git repo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% LaTeX PREAMBLE
+\documentclass[compress,
+               red]
+              {beamer}
+\mode<presentation>
+{
+  \usetheme{Frankfurt}
+}
+
+\input{headers/normalHeader}
+
+%%% other packages
+\usepackage{standalone}
+
+%%% BibTeX document
+%\bibliography{testTex/testBibtex}
+
+%%% Title
+\title{MapReduce}
+\subtitle{noch keine gute Idee} %bitte aendern
+\author{Daniel Monti \& Pascal Stump}
+\institute{HSR Hochschule für Technik Rapperswil}
+\date{\today}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BEGIN DOCUMENT
+\begin{document}
+
+%%% input tex files
+\frame{
+  \titlepage
+}
+
+\frame{
+  \frametitle{Gut zur info}
+  \url{http://www.math.utah.edu/~smith/AmberSmith_GSAC_Beamer.pdf}
+  zeigt gut was möglich ist.
+}
+
+\section{MapReduce}
+\input{mapreduce}
+
+\section{Eigenwert Berechnung}
+\input{eigenwert}
+
+\section{Schluss}
+\input{schluss}
+
+%%% END DOCUMENT
+\end{document}
