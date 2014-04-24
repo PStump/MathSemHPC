@@ -1,7 +1,7 @@
 n = 3; % nur 3 oder 4
 m = 10^n;  % geht bis 10^4 danach zu langsam
 mm = m/10^(n-1);
-a = mm - 8;
+a = mm - 9;
 ii = mm;
 s = 1;
 Iterationsschritte = 1000;
@@ -36,24 +36,23 @@ Zeit1 = toc;
 
 
 SchrittBearb = 0;
-matrixTeilung = 1;
 mm = testMM;
 tic; % Bearbeiten der Matrix
 %%%% erste 10 Durchlaeufe ohne Normierung
   parfor paraI = 1:mm %parallel for loop
   	    % mm x mm Matrix Aufteilung
-		matrixTeilung = paraI;
-		teilmatrix = R(matrixTeilung*mm:matrixTeilung*mm+mm-1, matrixTeilung*mm:matrixTeilung*mm+mm-1);
+		matrixTeilung = paraI-1;
+		teilmatrix = R(matrixTeilung*mm+1:matrixTeilung*mm+mm, matrixTeilung*mm+1:matrixTeilung*mm+mm);
 		
 		% Eigenvektorberechnung dieser Teilmatrix (des betragsmaesig groessten Eigenwerts)
 		helpU = ones(1,mm)';
 		
-		for loop10=1:5  %10 Durchlaeufe ohne Normierung
+		for loop10=1:10  %10 Durchlaeufe ohne Normierung
 		  helpU = (teilmatrix*helpU);   % Eigenvektoren
 		end
 		
 		% Berechneter Eigenvektor in eigenvektor einfuegen
-		eigenvektor(matrixTeilung*mm: matrixTeilung*mm+mm-1) = helpU;
+		eigenvektor(matrixTeilung*mm+1: matrixTeilung*mm+mm) = helpU;
   end
 
   globalNorm = norm(R*eigenvektor)
@@ -66,14 +65,14 @@ tic; % Bearbeiten der Matrix
   parfor paraI = 1:mm %parallel for loop
 	  % mm x mm Matrix Aufteilung
 	    SchrittBearb = 0;
-	    matrixTeilung = paraI;
-		teilmatrix = R(matrixTeilung*mm:matrixTeilung*mm+mm-1, matrixTeilung*mm:matrixTeilung*mm+mm-1);
+	    matrixTeilung = paraI-1;
+		teilmatrix = R(matrixTeilung*mm+1:matrixTeilung*mm+mm, matrixTeilung*mm+1:matrixTeilung*mm+mm);
 		
 		% Eigenvektorberechnung dieser Teilmatrix (des betragsmaesig groessten Eigenwerts)
-		helpU = eigenvektor(matrixTeilung*mm: matrixTeilung*mm+mm-1);
+		helpU = eigenvektor(matrixTeilung*mm+1: matrixTeilung*mm+mm);
 		eigAltWert = abs(helpU(1:1));
 		endWhile = 1;
-		while(endWhile && (SchrittBearb < 5))
+		while(endWhile)% && (SchrittBearb < 5))
 		  helpU = (teilmatrix*helpU) / globalNorm;   % Eigenvektoren
 		  SchrittBearb = SchrittBearb + 1;
 			
@@ -87,7 +86,7 @@ tic; % Bearbeiten der Matrix
 		end
 		
 		% Berechneter Eigenvektor in eigenvektor einfuegen
-		eigenvektor(matrixTeilung*mm: matrixTeilung*mm+mm-1) = helpU;
+		eigenvektor(matrixTeilung*mm+1: matrixTeilung*mm+mm) = helpU;
 		
 		%%%%%%%% eigenvektor
 		SchrittBearb
@@ -101,7 +100,7 @@ esse = u - eigenvektor;
 e = 0;
 qq = ones(1,m)';
 tic; % Eigenvektor berechnen von der bearbeiteten Matrix
-  for i = 1 : 1 : 5%Iterationsschritte
+  for i = 1 : 1 : Iterationsschritte
     if 1%e == 0
     eigenvektor = (R*eigenvektor) / norm(R*eigenvektor);
     Schritt2 = Schritt2 + 1;
