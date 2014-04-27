@@ -3,11 +3,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Parameter
-n = 10^1; % Matrix Groesse [n*n]
-b = 5; % Blockgroesse (Teilmatrizengroesse) MUSS MIT n KOMPATIEBEL SEIN
+n = 10^3; % Matrix Groesse [n*n]
+b = 10; % Blockgroesse (Teilmatrizengroesse) MUSS MIT n KOMPATIEBEL SEIN
 R = zeros(n); % Matrix mit Groesse [n*n]
-maxSchlaufen = 1000; % maximale Schlaufendurgaenge bei Eigenvektorberechnung
-genauigkeit = 1e5;
+maxSchlaufen = 100000; % maximale Schlaufendurgaenge bei Eigenvektorberechnung
+maxSchlaufenTeil = 10000;
+maxSchlaufenTeilSchluss = 100000;
+genauigkeit = 1e4;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,6 +41,7 @@ genauigkeit = 1e5;
   schritteOriginal = 0;
   uOrigAlt = zeros(n,1);
 
+tic;
   while( not(genauGenug) && (schritteOriginal < maxSchlaufen)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
     uOriginal = (R*uOriginal) / norm(R*uOriginal);
 	  schritteOriginal++;
@@ -49,6 +52,7 @@ genauigkeit = 1e5;
 	  end
 	  uOrigAlt = abs(round(uOriginal*genauigkeit));
   end
+zeitOriginal = toc
 	
 	eigenwertOriginal = uOriginal' * R * uOriginal
   if(schritteOriginal == maxSchlaufen)
@@ -61,7 +65,7 @@ genauigkeit = 1e5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigenwertberechnung mit Teilmatrizen
   uTeil = ones(n,1);
-	
+tic;
 	% 10 Durchgaenge ohne Normierung
 	parfor teil = 1:n/b % Originalmatrix parallel aufteilen in Teilmatrizen mit Groesse [b*b]
 	  
@@ -105,7 +109,7 @@ genauigkeit = 1e5;
 		end
 		uTeilAlt = zeros(b,1);
 
-    while( not(genauGenug) && (schritteTeilMatrix < maxSchlaufen)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
+    while( not(genauGenug) && (schritteTeilMatrix < maxSchlaufenTeil)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
       uTeilMatrix = teilmatrix*uTeilMatrix;% / globalNorm;
 	    schritteTeilMatrix++;
 	
@@ -124,8 +128,10 @@ genauigkeit = 1e5;
 	schritteTeilTot = 0;
 	genauGenug = 0;
 	uTeilTotAlt = zeros(n,1);
+
+zeitTeilTeil = toc;
 	
-	while( not(genauGenug) && (schritteTeilTot < maxSchlaufen)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
+	while( not(genauGenug) && (schritteTeilTot < maxSchlaufenTeilSchluss)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
     uTeil = (R*uTeil) / norm(R*uTeil);
 	  schritteTeilTot++;
 	
@@ -135,6 +141,8 @@ genauigkeit = 1e5;
 	  end
 	  uTeilTotAlt = abs(round(uTeil*genauigkeit));
   end
+zeitTeilGesamt = toc
+zeitTeilSchluss = zeitTeilGesamt - zeitTeilTeil
 	
 	eigenwertTeil = uTeil' * R * uTeil
   if(schritteTeilTot == maxSchlaufen)
