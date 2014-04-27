@@ -2,8 +2,10 @@
 %%%
 
 % Parameter
-n = 10; % Matrix Groesse [n*n]
+n = 10^2; % Matrix Groesse [n*n]
 R = zeros(n); % Matrix mit Groesse [n*n]
+maxSchlaufen = 10000; % maximale Schlaufendurgaenge bei Eigenvektorberechnung
+genauigkeit = 1e5;
 
 % Matrix Generator (Pseudo Google Matrix; Spalten Summe = 1; Bandmatrix)
   zufall = unifrnd(0,1); % ergibt Zufaellige float Zahl [0;1]
@@ -24,3 +26,27 @@ R = zeros(n); % Matrix mit Groesse [n*n]
 	%	  sprintf('Error Spalte: %i Summe = %f', spalte, sum(R(:,spalte)))
 	%  end
 	%end
+	
+% Eigenwertberechnung original ueber gesamte Matrix
+  genauGenug = 0;
+  uOriginal = ones(n,1);
+  schritteOriginal = 0;
+  uOrigAlt = zeros(n,1);
+
+  while( not(genauGenug) && (schritteOriginal < maxSchlaufen)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
+    uOriginal = (R*uOriginal) / norm(R*uOriginal);
+	  schritteOriginal++;
+	
+	  % Test: ob Genauigkeit erreicht
+	  if(uOrigAlt == abs(round(uOriginal*genauigkeit)))
+	    genauGenug = 1;
+	  end
+	  uOrigAlt = abs(round(uOriginal*genauigkeit));
+  end
+	
+	eigenwertOriginal = uOriginal' * R * uOriginal
+  if(schritteOriginal == maxSchlaufen)
+	  sprintf('Original Eigenwertberechnung max. Schlaufen erreicht: %i',schritteOriginal)
+	else
+	  schritteOriginal
+	end
