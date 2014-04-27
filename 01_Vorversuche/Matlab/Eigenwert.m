@@ -1,12 +1,15 @@
 % neuer Versuch, alles neu geschrieben
-%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Parameter
 n = 10^2; % Matrix Groesse [n*n]
 R = zeros(n); % Matrix mit Groesse [n*n]
 maxSchlaufen = 10000; % maximale Schlaufendurgaenge bei Eigenvektorberechnung
 genauigkeit = 1e5;
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Matrix Generator (Pseudo Google Matrix; Spalten Summe = 1; Bandmatrix)
   zufall = unifrnd(0,1); % ergibt Zufaellige float Zahl [0;1]
   R(:,1) = [zufall; 1-zufall; zeros(n-2,1)]; % 1. Spalte befuellen (Zufallszahlen Summe=1, mit nullen auffuellen)
@@ -26,7 +29,9 @@ genauigkeit = 1e5;
 	%	  sprintf('Error Spalte: %i Summe = %f', spalte, sum(R(:,spalte)))
 	%  end
 	%end
+
 	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigenwertberechnung original ueber gesamte Matrix
   genauGenug = 0;
   uOriginal = ones(n,1);
