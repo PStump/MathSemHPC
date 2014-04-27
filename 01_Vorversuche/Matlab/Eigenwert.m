@@ -3,9 +3,10 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Parameter
-n = 10^2; % Matrix Groesse [n*n]
+n = 10^1; % Matrix Groesse [n*n]
+b = 5; % Blockgroesse (Teilmatrizengroesse) MUSS MIT n KOMPATIEBEL SEIN
 R = zeros(n); % Matrix mit Groesse [n*n]
-maxSchlaufen = 10000; % maximale Schlaufendurgaenge bei Eigenvektorberechnung
+maxSchlaufen = 1000; % maximale Schlaufendurgaenge bei Eigenvektorberechnung
 genauigkeit = 1e5;
 
 
@@ -54,4 +55,90 @@ genauigkeit = 1e5;
 	  sprintf('Original Eigenwertberechnung max. Schlaufen erreicht: %i',schritteOriginal)
 	else
 	  schritteOriginal
+	end
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Eigenwertberechnung mit Teilmatrizen
+  uTeil = ones(n,1);
+	
+	% 10 Durchgaenge ohne Normierung
+	parfor teil = 1:n/b % Originalmatrix parallel aufteilen in Teilmatrizen mit Groesse [b*b]
+	  
+		genauGenug = 0;
+    uTeilMatrix = ones(b,1);
+    schritteTeilMatrix = 0;
+    uTeilAlt = zeros(b,1);
+		
+		%            R(zeile von:bis, spalte von:bis)
+		teilmatrix = R( (b*(teil-1)+1:b*(teil-1)+b) , (b*(teil-1)+1:b*(teil-1)+b) );
+		
+		% 10 Durchgaenge ohne Normierung
+		for temp=1:10
+		  uTeilMatrix = teilmatrix*uTeilMatrix;
+		end
+		
+		uTeil(b*(teil-1)+1:b*(teil-1)+b) = uTeilMatrix;
+	end
+	
+	% norm Berechnung ueber gesammte Matrix
+	globalNorm = norm(R*uTeil)
+	uTeil = (R*uTeil) / norm(R*uTeil);
+	globalNorm = norm(R*uTeil)
+	uTeil = (R*uTeil) / norm(R*uTeil);
+	globalNorm = norm(R*uTeil)
+	
+	% Teilmatrizenberechnung solang Genauigkeit oder Schlaufen max erreicht
+	parfor teil = 1:n/b % Originalmatrix parallel aufteilen in Teilmatrizen mit Groesse [b*b]
+	  
+		genauGenug = 0;
+    uTeilMatrix = ones(b,1);
+    schritteTeilMatrix = 0;
+    uTeilAlt = zeros(b,1);
+		
+		%            R(zeile von:bis, spalte von:bis)
+		teilmatrix = R( (b*(teil-1)+1:b*(teil-1)+b) , (b*(teil-1)+1:b*(teil-1)+b) );
+		
+		% Durchgaenge mit Globaler Normierung
+		for temp=1:10
+		  uTeilMatrix = teilmatrix*uTeilMatrix;
+		end
+		uTeilAlt = zeros(b,1);
+
+    while( not(genauGenug) && (schritteTeilMatrix < maxSchlaufen)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
+      uTeilMatrix = teilmatrix*uTeilMatrix;% / globalNorm;
+	    schritteTeilMatrix++;
+	
+	    % Test: ob Genauigkeit erreicht
+	    if(uTeilAlt == abs(round(uTeilMatrix*genauigkeit)))
+	      genauGenug = 1;
+	    end
+	    uTeilAlt = abs(round(uTeilMatrix*genauigkeit));
+    end
+		
+		schritteTeilMatrix
+		uTeil(b*(teil-1)+1:b*(teil-1)+b) = uTeilMatrix;
+	end
+	
+	% soviele Durchgaenge auf gesamter Matrix bis Genauigkeit oder Schritte max erreicht
+	schritteTeilTot = 0;
+	genauGenug = 0;
+	uTeilTotAlt = zeros(n,1);
+	
+	while( not(genauGenug) && (schritteTeilTot < maxSchlaufen)) % Eigenvektorberechnung solange genau genug oder Schalufendurchgaenge genug oft
+    uTeil = (R*uTeil) / norm(R*uTeil);
+	  schritteTeilTot++;
+	
+	  % Test: ob Genauigkeit erreicht
+	  if(uTeilTotAlt == abs(round(uTeil*genauigkeit)))
+	    genauGenug = 1;
+	  end
+	  uTeilTotAlt = abs(round(uTeil*genauigkeit));
+  end
+	
+	eigenwertTeil = uTeil' * R * uTeil
+  if(schritteTeilTot == maxSchlaufen)
+	  sprintf('Teilmatrizen Eigenwertberechnung max. Schlaufen erreicht: %i',schritteTeilTot)
+	else
+	  schritteTeilTot
 	end
