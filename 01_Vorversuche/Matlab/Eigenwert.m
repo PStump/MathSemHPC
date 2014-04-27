@@ -120,7 +120,9 @@ tic;
 	    uTeilAlt = abs(round(uTeilMatrix*genauigkeit));
     end
 		
-		schritteTeilMatrix
+		if(schritteTeilMatrix == maxSchlaufenTeil)
+	  sprintf('Teilmatrix max. Schlaufen erreicht: %i',schritteTeilMatrix)
+	  end
 		uTeil(b*(teil-1)+1:b*(teil-1)+b) = uTeilMatrix;
 	end
 	
