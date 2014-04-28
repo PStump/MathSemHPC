@@ -29,15 +29,45 @@
 %%% other packages
 \usepackage{standalone}
 
+\setcounter{MaxMatrixCols}{20}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{0,1,0.3}
+\definecolor{colString}{rgb}{0,0.5,0}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\usepackage{listings}
+\lstset{language=Matlab,
+   keywords={break,case,catch,continue,else,elseif,end,for,function,
+   global,if,otherwise,persistent,return,switch,try,while},
+   float=hbp,
+   basicstyle=\ttfamily\tiny,
+   identifierstyle=\color{colIdentifier},
+   keywordstyle=\color{blue},
+   commentstyle=\color{dkgreen},
+   stringstyle=\color{dkgreen},
+   columns=flexible,
+   tabsize=2,
+   frame=single,
+   numbers=left,
+   extendedchars=true,
+   showspaces=false,
+   numberstyle=\tiny\color{gray},
+   stepnumber=1,
+   numbersep=10pt,
+   showspaces=false,
+   showstringspaces=false,
+   breakautoindent=true}
+   
 %%% BibTeX document
 %\bibliography{testTex/testBibtex}
-
 %%% Title
 \title{MapReduce}
 \subtitle{noch keine gute Idee} %bitte aendern
 \author{Daniel Monti \& Pascal Stump}
 \institute{HSR Hochschule für Technik Rapperswil}
-\date{\today}
+\date{5. Mai 2014}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
