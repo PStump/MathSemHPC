@@ -3,8 +3,10 @@
 	aa = 1;
 	bb = 9;
 	cc = 17;
+	
+durchgaenge = 20
 
-for es = 0 : 1 : 99
+for es = 0 : 1 : (durchgaenge-1)
 % neuer Versuch, alles neu geschrieben
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -208,17 +210,17 @@ zeitTeilSchluss = zeitTeilGesamt - zeitTeilTeil
 	 DurchschnittZeitTeil = 0;
 	 DurchschnittOriginal = 0;
 	 
-	   for q = bb : 24 : (2376 + bb)
+	   for q = bb : 24 : ( ((durchgaenge-1)*24) + bb)
 	   DurchschnittZeitTeil = (DurchschnittZeitTeil + Werte([q]));
 	   end
 	
-	  WerteDurchschnitt([bb]) = (DurchschnittZeitTeil / 100);
+	  WerteDurchschnitt([bb]) = (DurchschnittZeitTeil / durchgaenge);
 	
-		for q = cc : 24 : (2376 + cc) 
+		for q = cc : 24 : ( ((durchgaenge-1)*24) + cc) 
 		DurchschnittOriginal = (DurchschnittOriginal + Werte([q]));
 		end
 	
-	  WerteDurchschnitt([cc]) = (DurchschnittOriginal / 100);
+	  WerteDurchschnitt([cc]) = (DurchschnittOriginal / durchgaenge);
 	
 	  aa = aa + 1;
 	  bb = bb + 1;
