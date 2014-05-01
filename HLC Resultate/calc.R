@@ -1,8 +1,8 @@
-A <- read.csv("TeilmatrixGroesse.csv")
-B <- read.csv("ZeitTeil.csv")
-C <- read.csv("ZeitOriginal.csv")
+A <- read.csv("TeilmatrixGroesse1000.csv")
+B <- read.csv("ZeitTeil1000.csv")
+C <- read.csv("ZeitOriginal1000.csv")
 
-pdf("HSR.pdf")
+pdf("HSR1000.pdf")
 
 plot(B$b ~ A$a,  col = "red",
 		xlab = "Grösse der Teilmatrizen",

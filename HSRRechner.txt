@@ -1,0 +1,42 @@
+copy files to server:
+
+1. connect to VPN
+2. go to dir you want to copy
+3. scp -r file/dir/to/copy username@umnwsim1:~/path/to/remote/dir/
+
+copy files to lokal computer (example):
+1. scp -r username@umnwsim1:~/path/to/remote/dir/ /path/to/local/dir/
+
+
+login:
+
+1. ssh -l username umnwsim1
+2. PW
+
+activate screen saver:
+
+1. type "screen" after login
+2. press "Ctrl"+"a" "d" befor log out
+3. log out
+
+reentry to activ screen:
+
+1. log in 
+2. type "screen  -r"
+
+basics:
+
+copy:
+cp {dire}
+ 
+rename:
+mv {old-name} {new-name}
+
+delite:
+rm {name}
+
+delite dir:
+rmdir -r {dir}
+
+move:
+mv {old-dir} {new-dir}
