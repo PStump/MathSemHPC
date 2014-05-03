@@ -167,14 +167,12 @@ zeitTeilSchluss = zeitTeilGesamt - zeitTeilTeil
 	else
 	  schritteTeilTot
 	end
-
-	save myB.mat b;
-	save myZeitTeilGesamt zeitTeilGesamt;
-	save myZeitOriginal zeitOriginal;
 	
 	Werte([aa]) = b;
 	Werte([bb]) = zeitTeilGesamt;
 	Werte([cc]) = zeitOriginal;
+	
+	save myWerte Werte;
 	
 	aa = aa + 1;
 	bb = bb + 1;
