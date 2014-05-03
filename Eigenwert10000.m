@@ -14,7 +14,7 @@ for es = 0 : 1 : (durchgaenge-1)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Parameter
 n = 10^4; % Matrix Groesse [n*n]
-b = 5000; % Blockgroesse (Teilmatrizengroesse) MUSS MIT n KOMPATIEBEL SEIN
+b = 5000 % Blockgroesse (Teilmatrizengroesse) MUSS MIT n KOMPATIEBEL SEIN
 R = zeros(n); % Matrix mit Groesse [n*n]
 maxSchlaufen = 100000; % maximale Schlaufendurgaenge bei Eigenvektorberechnung
 maxSchlaufenTeil = 10000;
@@ -71,7 +71,7 @@ zeitOriginal = toc
 	  schritteOriginal
 	end
 	
-	
+	fflush(stdout)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigenwertberechnung mit Teilmatrizen
   uTeil = ones(n,1);
@@ -179,21 +179,21 @@ zeitTeilSchluss = zeitTeilGesamt - zeitTeilTeil
 	
 	
 	if q == 0
-	b = 2500;
+	b = 2500
 	elseif q == 1
-	b = 2000;
+	b = 2000
 	elseif q == 2
-	b = 1250;
+	b = 1250
 	elseif q == 3
-	b  = 1000;
+	b  = 1000
 	elseif q == 4
-	b = 500;
+	b = 500
 	elseif q == 5
-	b = 250;
+	b = 250
 	else
-	b = 100;
+	b = 100
 	end
-
+  fflush(stdout)
 	end
 
 
