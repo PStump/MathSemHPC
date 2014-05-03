@@ -42,7 +42,7 @@ genauigkeit = 1e4;
 	%  end
 	%end
 % Forschleif für Datensammlung sollten 1000 Schritte sein und das 100 mal mit einer neuen Matrix R	
-for q = 0 : 1 : 7
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigenwertberechnung original ueber gesamte Matrix
   genauGenug = 0;
@@ -72,6 +72,9 @@ zeitOriginal = toc
 	end
 	
 	fflush(stdout)
+	
+% nur noch 1 mal ueber die gesammte Matrix
+for q = 0 : 1 : 7
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigenwertberechnung mit Teilmatrizen
   uTeil = ones(n,1);
