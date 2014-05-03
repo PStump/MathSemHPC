@@ -4,9 +4,11 @@
 	bb = 9;
 	cc = 17;
 	
-durchgaenge = 20
+durchgaenge = 5
 
 for es = 0 : 1 : (durchgaenge-1)
+  sprintf('Durchgangnummer: %i von %i',es,durchgaenge)
+	fflush(stdout)
 % neuer Versuch, alles neu geschrieben
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,6 +165,10 @@ zeitTeilSchluss = zeitTeilGesamt - zeitTeilTeil
 	  schritteTeilTot
 	end
 
+	save myB.mat b;
+	save myZeitTeilGesamt zeitTeilGesamt;
+	save myZeitOriginal zeitOriginal;
+	
 	Werte([aa]) = b;
 	Werte([bb]) = zeitTeilGesamt;
 	Werte([cc]) = zeitOriginal;
