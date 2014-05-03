@@ -1,0 +1,16 @@
+# gitignore LaTeX
+*.log
+*.gz
+*.*~
+*.aux
+*.pdf
+*.bbl
+*.bcf
+*.blg
+*.out
+*.run.xml
+*.dvi
+*.nav
+*.snm
+*.toc
+octave-workspace
