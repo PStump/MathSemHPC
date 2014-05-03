@@ -1,8 +1,53 @@
 \subsection{Definition}
 \frame{
   \frametitle{Was ist MapReduce}
+
+  \begin{itemize}
+    \item Programmiermodell
+    \item Parallele Verarbeitung von Petabyte an Daten
+    \item Google
+    \item Cluster aus \enquote{normaler Hardware}
+    \item MapReduce-Framework (z.B. hadoop) sorgt für Aufteilung
+  \end{itemize}
 }
 
+\frame{
+  \frametitle{Datenfulss}
+  \begin{center}
+  \begin{tikzpicture}
+    \node[rectangle,fill=blue!20] (data) {Daten};
+
+    \node[circle,fill=green!80] (map1) [right=of data,yshift=1.5cm,xshift=-.5cm] {Map};
+    \node[circle,fill=green!80!black] (map2) [right=of data,xshift=-.5cm] {Map};
+    \node[circle,fill=green!60!black] (map3) [right=of data,yshift=-1.5cm,xshift=-.5cm] {Map};
+
+    \node[rectangle,fill=blue!20,align=left] (zData) [right=of map2,xshift=-.5cm] {Zwischen-\\ergebnisse};
+
+    \node[ellipse,fill=orange!40] (reduce1) [right=of zData,yshift=1cm,xshift=-.5cm] {Reduce};
+    \node[ellipse,fill=orange!60] (reduce2) [right=of zData,yshift=-1cm,xshift=-.5cm] {Reduce};
+
+    \node[ellipse,fill=orange!40] (erg1) [right=of reduce1,xshift=-.5cm] {Ergebnis};
+    \node[ellipse,fill=orange!60] (erg2) [right=of reduce2,xshift=-.5cm] {Ergebnis};
+
+    \draw[->,>=stealth',thick] (data)  to [out=45,in=180]  (map1);
+    \draw[->,>=stealth',thick] (data)  to [out=0,in=180]   (map2);
+    \draw[->,>=stealth',thick] (data)  to [out=-45,in=180] (map3);
+
+    \draw[->,>=stealth',thick] (map1)  to [out=0,in=135]   (zData);
+    \draw[->,>=stealth',thick] (map2)  to [out=0,in=180]   (zData);
+    \draw[->,>=stealth',thick] (map3)  to [out=0,in=-135]  (zData);
+
+    \draw[->,>=stealth',thick] (zData) to [out=45,in=180]  (reduce1);
+    \draw[->,>=stealth',thick] (zData) to [out=-45,in=180] (reduce2);
+
+    \draw[->,>=stealth',thick] (reduce1) to [out=0,in=180] (erg1);
+    \draw[->,>=stealth',thick] (reduce2) to [out=0,in=180] (erg2);
+  \end{tikzpicture}
+
+  \end{center}
+}
+
+\subsection{Google Matrix}
 \frame{
   \frametitle{Google Matrix / Page Rank}
 \begin{center}
