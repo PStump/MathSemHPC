@@ -12,6 +12,41 @@
 }
 
 \frame{
+  \frametitle{Konzept}
+
+  \begin{itemize}
+    \item 2 separate Abläufe
+      \begin{itemize}
+        \item Map
+        \item Reduce
+      \end{itemize}
+    \item Input: unstrukturierte Daten
+    \item Schlüssel-/Werte-Paare
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Beispiel}
+  
+  \begin{enumerate}
+    \item Input unstrukturierte Wetterdaten\\
+        ...190101011300-0072...
+    \item Startposition an Map übergeben
+    \item Output von Map
+      \begin{center}
+      \begin{tabular}{lr}
+        (1950, &0)\\
+        (1950, &22)\\
+        (1950, &-11)\\
+        (1949, &5)
+      \end{tabular}
+      \end{center}
+    \item \textit{(shuffle)}
+    \item Reduce
+  \end{enumerate}
+}
+
+\frame{
   \frametitle{Datenfulss}
   \begin{center}
   \begin{tikzpicture}
@@ -29,9 +64,9 @@
     \node[ellipse,fill=orange!40] (erg1) [right=of reduce1,xshift=-.5cm] {Ergebnis};
     \node[ellipse,fill=orange!60] (erg2) [right=of reduce2,xshift=-.5cm] {Ergebnis};
 
-    \draw[->,>=stealth',thick] (data)  to [out=45,in=180]  (map1);
+    \draw[->,>=stealth',thick] (data)  to [out=45,in=180]  (map1.west) --++ (7:.01cm);
     \draw[->,>=stealth',thick] (data)  to [out=0,in=180]   (map2);
-    \draw[->,>=stealth',thick] (data)  to [out=-45,in=180] (map3);
+    \draw[->,>=stealth',thick] (data)  to [out=-45,in=180] (map3.west) --++ (-7:.01cm);
 
     \draw[->,>=stealth',thick] (map1)  to [out=0,in=135]   (zData);
     \draw[->,>=stealth',thick] (map2)  to [out=0,in=180]   (zData);
@@ -46,6 +81,7 @@
 
   \end{center}
 }
+
 
 \subsection{Google Matrix}
 \frame{
@@ -78,7 +114,8 @@
   %\node[rectangle,fill=red!20,draw=red!50,thick](TotMatrix)[below=1cm of matrix, xshift=-3cm]{};
   %\node[->,shape=arc,180:30:1cm,thick]()[below=1cm of matrix, xshift=-3cm]{all in one};
   \node[rectangle,fill=blue!20,draw=blue!50,ultra thick,align=center] (matrix) {pseudo Google Matrix generieren};
-  \draw[->,>=stealth'](0,0) arc (0:30:3cm);
+  \node[below=of matrix,xshift=-2cm] (dummy){};
+  \draw[->,>=stealth',ultra thick](dummy) arc (-175:120:.3cm) --++ (195:.1cm);
 \end{tikzpicture}
 \end{center}
 }
