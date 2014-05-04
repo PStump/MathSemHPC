@@ -1,9 +1,19 @@
 \subsection{Vorgehen}
 \frame{
-  \frametitle{Unsere ersten Versuche}
-  
-  \subsection{Google Eigenwert Matrix}
-Potenzmethode\\
+\frametitle{Unser Beispiel mit Mapreduce}
+\begin{itemize}
+\item
+Eigenwert Problem lösen
+\item
+Google Page Rank als Ziel
+\item
+Aufteilen und zusammenfügen grosser Matrizen
+\item
+Wir verwenden die im Unterricht bearbeitete Potenzmethode
+\end{itemize}
+}
+\frame{
+  \frametitle{Potenzmethode}
 
 $$
 \begin{bmatrix}
@@ -29,23 +39,56 @@ u_8 \\
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-1 \\
-1 \\ 
-1 \\
- 1 \\
- 1 \\
- 1 \\ 
- 1 \\
-  1 \\
- 
+u_1 \\
+u_2 \\
+u_3 \\
+u_4 \\
+u_5 \\
+u_6 \\
+u_7 \\
+u_8 \\
 \end{bmatrix}
 $$
 
 
 
 
-$$Eigenvektor=\dfrac{Eigenvektor \cdot Matrix}{Norm(Eigenvektor\cdot Matrix)}$$
+$$Eigenvektor(u)=\dfrac{Eigenvektor \cdot Matrix}{Norm(Eigenvektor\cdot Matrix)}$$
 $$Eigenwert\footnote{Betragsmässig grösster Eigenwert} = Eigenvektor \cdot Matrix \cdot Eigenvektor'$$
+}
+\frame{
+$$
+\begin{bmatrix}
+\frac{1}{4} & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\frac{3}{4} & \frac{1}{4} & \frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & \frac{1}{3} & \frac{1}{4} & \frac{1}{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & \frac{1}{4} & \frac{1}{4} & \frac{1}{3} & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{3} & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{3}  & \frac{1}{3} & \frac{1}{4} & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{3} & \frac{1}{4} & \frac{1}{4} & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} & \frac{1}{4} & \frac{1}{3} & 0  \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{2}\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &0 & 0 & \frac{1}{3} & \frac{1}{2} \\
+\end{bmatrix}
+\quad
+\begin{bmatrix}
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+\end{bmatrix}
+$$
+
 }
 
 \frame
@@ -96,42 +139,27 @@ $$Eigenwert\footnote{Betragsmässig grösster Eigenwert} = Eigenvektor \cdot Mat
 \end{center}
 }
 
-\frame{
-$$
-\begin{bmatrix}
-\frac{1}{4} & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-\frac{3}{4} & \frac{1}{4} & \frac{1}{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & \frac{1}{3} & \frac{1}{4} & \frac{1}{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & \frac{1}{4} & \frac{1}{4} & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & \frac{1}{4} & \frac{1}{4} & \frac{1}{3} & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{3} & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{3}  & \frac{1}{3} & \frac{1}{4} & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{3} & \frac{1}{4} & \frac{1}{4} & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} & \frac{1}{4} & \frac{1}{3} & 0  \\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{2}\\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 &0 & 0 & \frac{1}{3} & \frac{1}{2} \\
-\end{bmatrix}
-$$
 
-}
 
 \frame{
 $$
 \begin{bmatrix}
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 \frac{1}{4} & \frac{1}{4} & 0 & 0 \\
 \frac{3}{4} & \frac{1}{4} & \frac{1}{3} & 0  \\
 0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{2} \\
 0 & 0 & \frac{1}{3} & \frac{1}{4}  \\
 \end{bmatrix}
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 \textcolor{red}{\frac{2}{6}} & 0 & 0 & 0 \\
 \end{bmatrix}
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
@@ -139,18 +167,21 @@ $$
 \end{bmatrix}
 \\
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 0 & 0 & 0 & \textcolor{red}{\frac{1}{3}} \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 \end{bmatrix}
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 \frac{1}{2} & \frac{1}{4} & 0 & 0 \\
 \frac{1}{6} & \frac{1}{4} & \frac{1}{3} & 0  \\
 0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{3} \\
 0 & 0 & \frac{1}{3} & \frac{1}{3}  \\
 \end{bmatrix}
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
@@ -158,18 +189,21 @@ $$
 \end{bmatrix}
 \\
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 \end{bmatrix}
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 0 & 0 & 0 & \textcolor{red}{\frac{1}{4}} \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 0 & 0 & 0 & 0 \\
 \end{bmatrix}
 \begin{bmatrix}
+\phantom{aa}&\phantom{dd} & \phantom{cc} & \phantom{dd} \\[-1.5ex]
 \frac{1}{4} & \frac{1}{4} & 0 & 0 \\
 \frac{1}{2} & \frac{1}{4} & \frac{1}{3} & 0  \\
 0 & \frac{1}{2} & \frac{1}{3} & \frac{1}{2} \\
@@ -300,6 +334,7 @@ $$
 \end{tikzpicture}
 \end{center}
 }
+
 \frame{
 \frametitle{Erste Veruche/Probleme }
 \begin{itemize}
@@ -308,15 +343,13 @@ Original und Aufteilung waren fast immer gleich schnell
 \item
 Anfangs wurde bei jedem Schritt die Teilmatrix genormt
 \item
-Dies führte dazu das die Eigenvektoren auseinander gingen
-
-
+Dies führte dazu das die Eigenvektoren auseinander gingen (bessere Wortwahl finden)
+\item
+Funktionierte nicht mit \textcolor{blue}{sparse} Matrizen
 \end{itemize}
-
 }
 
 \frame{
-\frametitle{End Resultat}
   \begin{center}
   \begin{tikzpicture}
   \node[rectangle,fill=blue!20,draw=blue!50,ultra
@@ -371,28 +404,6 @@ Dies führte dazu das die Eigenvektoren auseinander gingen
   \end{center}
 }
 
-\frame
-{
-\frametitle{Beispiel aus Code}
-\begin{minipage}{0.48\textwidth}
-\includegraphics[width=0.9\textwidth]{./Bilder/spy}
-\end{minipage}
-\hspace{0.1cm}
-\begin{minipage}{0.48\textwidth}
-\lstinputlisting[breaklines=true]{GoogleMatrix.m}
-\end{minipage}
-
-}
-
-\frame{
-\begin{center}
-\textbf{Parallelisierung der for Schlaufen}
-\end{center}
-\lstinputlisting[breaklines=true]{parfor.m}
-}
-
-
-
 \frame{
 \frametitle{Ausgabe des Codes}
 \renewcommand{\arraystretch}{1.4}
@@ -416,6 +427,30 @@ Teilmatrix Grösse & 50 & 500 & 5000 \\
 \end{tabular}
 \end{center}
 }
+
+\frame
+{
+\frametitle{Beispiel aus Code}
+\begin{minipage}{0.48\textwidth}
+\includegraphics[width=0.9\textwidth]{./Bilder/spy}
+\end{minipage}
+\hspace{0.1cm}
+\begin{minipage}{0.48\textwidth}
+\lstinputlisting[breaklines=true]{GoogleMatrix.m}
+\end{minipage}
+
+}
+
+\frame{
+\begin{center}
+\textbf{Parallelisierung der for Schlaufen}
+\end{center}
+\lstinputlisting[breaklines=true]{parfor.m}
+}
+
+
+
+
 
 
 \frame{
