@@ -47,10 +47,10 @@ graphics.off()
 		 xlab = "Grösse der Teilmatrizen",
 		 ylab = "Bearbeitungseit [s]",
 		 main = "10000 x 10000 Matrix",
-		 ylim=c(0,20))
+		 ylim=c(0,2000))
 		 points(C$c ~ A$a,col="green")
 		
-		 legend(1500 , 20, c("Zeit Original", "Zeit bearbeitet"),
+		 legend(3500 , 1500, c("Zeit Original", "Zeit bearbeitet"),
 		 col=c("green", "red"),pch = c(1,1))
 
  grid()
