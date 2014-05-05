@@ -142,6 +142,7 @@ $$
 
 
 \frame{
+\only<1>{
 $$
 \begin{bmatrix}
 \begin{bmatrix}
@@ -234,10 +235,7 @@ $$
 %
 %}
 
-
-
-\frame 
-{
+\only<2>{
 \begin{center}
 
 \begin{tikzpicture}[scale = 0.7]
@@ -286,6 +284,7 @@ $$
 
 \end{tikzpicture}
 \end{center}
+}
 }
 \frame{
 \begin{center}
@@ -449,7 +448,7 @@ Teilmatrix Grösse & 50 & 500 & 5000 \\
 
 
 
-
+\subsection{Auswertung}
 
 \frame{
 \frametitle{Auswertung der Berechnungszeiten}
@@ -470,19 +469,15 @@ Trotz random Matrix erhalten wir gute Durchschnittswerte
 
 \frame{
 \begin{center}
+ \only<1>{
  \includegraphics[width= 0.8\textwidth]{./bilder/PC100.pdf}
-\end{center}
-
 }
-\frame{
-\begin{center}
+ \only<2>{
  \includegraphics[width= 0.8\textwidth]{./bilder/PC1000.pdf}
-\end{center}
 }
-
-\frame{
-\begin{center}
+ \only<3>{
  \includegraphics[width= 0.8\textwidth]{./bilder/PC10000.pdf}
+}
 \end{center}
 }
 
@@ -528,6 +523,17 @@ Matrix & Teilmatrizen & In \% von der Originalzeit \\
 \frame{
 \begin{center}
 \includegraphics[width=0.8\textwidth]{./bilder/Ver.pdf}
+\end{center}
+}
+
+\frame{
+\begin{center}
+  \only<1>{
+\includegraphics[width=0.8\textwidth]{./bilder/PC1000spec25.pdf}
+}
+  \only<2>{
+\includegraphics[width=0.8\textwidth]{./bilder/PC1000spec250.pdf}
+}
 \end{center}
 }
 
