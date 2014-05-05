@@ -1,6 +1,6 @@
 \subsection{Vorgehen}
 \frame{
-\frametitle{Unser Beispiel mit Mapreduce}
+\frametitle{Unser Beispiel mit MapReduce}
 \begin{itemize}
 \item
 Eigenwert Problem lösen
@@ -54,7 +54,7 @@ $$
 
 
 $$Eigenvektor(u)=\dfrac{Eigenvektor \cdot Matrix}{Norm(Eigenvektor\cdot Matrix)}$$
-$$Eigenwert\footnote{Betragsmässig grösster Eigenwert} = Eigenvektor \cdot Matrix \cdot Eigenvektor'$$
+$$Eigenwert\footnote{Betragsmässig grösster Eigenwert} = Eigenvektor^T \cdot Matrix \cdot Eigenvektor$$
 }
 \frame{
 $$
@@ -343,9 +343,7 @@ Original und Aufteilung waren fast immer gleich schnell
 \item
 Anfangs wurde bei jedem Schritt die Teilmatrix genormt
 \item
-Dies führte dazu das die Eigenvektoren auseinander gingen (bessere Wortwahl finden)
-\item
-Funktionierte nicht mit \textcolor{blue}{sparse} Matrizen
+Dies führte dazu das die Eigenvektoren falsch korrigiert wurden
 \end{itemize}
 }
 
@@ -380,7 +378,7 @@ Funktionierte nicht mit \textcolor{blue}{sparse} Matrizen
   \node at (teilN) {n};
   \draw[->,>=stealth',very thick,orange!80!black] (teilN) ++ (-175:.3cm)
     arc (-175:120:.3cm) --++ (195:.1cm);
-  \node[right=of teilN,xshift=-.5cm,align=left] {Teil\\ mit Globalnorm.};
+  \node[right=of teilN,xshift=-.5cm,align=left] {Teil\\ ohne Normierung};
 
   \node[below=of teilN] (gesamtN) {};
   \node at (gesamtN) {n};
@@ -459,9 +457,9 @@ Teilmatrix Grösse & 50 & 500 & 5000 \\
 \item
 Berechnungen von $10^2x10^2$, $10^3x10^3$, $10^4x10^4$ Matrizen
 \item
-Je 100 Durchläufe mit unterschiedlichen random Google Matrizen
+Je 100 (5) Durchläufe mit unterschiedlichen random Google Matrizen
 \item
-Jeder der 100 Durchläufe wird über die original Matrix und alle Teilmatrizen berechnet
+Jeder der 100 (5) Durchläufe wird über die original Matrix und alle Teilmatrizen berechnet
 
 \item
 Trotz random Matrix erhalten wir gute Durchschnittswerte

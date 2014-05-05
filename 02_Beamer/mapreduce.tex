@@ -25,26 +25,7 @@
   \end{itemize}
 }
 
-\frame{
-  \frametitle{Beispiel}
-  
-  \begin{enumerate}
-    \item Input unstrukturierte Wetterdaten\\
-        ...190101011300-0072...
-    \item Startposition an Map übergeben
-    \item Output von Map
-      \begin{center}
-      \begin{tabular}{lr}
-        (2013, &0)\\
-        (2013, &22)\\
-        (2013, &-11)\\
-        (2012, &5)
-      \end{tabular}
-      \end{center}
-    \item \textit{(shuffle)}
-    \item Reduce
-  \end{enumerate}
-}
+
 
 \frame{
   \frametitle{Datenfluss}
@@ -80,6 +61,27 @@
   \end{tikzpicture}
 
   \end{center}
+}
+
+\frame{
+  \frametitle{Beispiel}
+  
+  \begin{enumerate}
+    \item Input unstrukturierte Wetterdaten\\
+        ...190101011300-0072...
+    \item Startposition an Map übergeben
+    \item Output von Map
+      \begin{center}
+      \begin{tabular}{lr}
+        (2013, &0)\\
+        (2013, &22)\\
+        (2013, &-11)\\
+        (2012, &5)
+      \end{tabular}
+      \end{center}
+    \item \textit{(shuffle)}
+    \item Reduce
+  \end{enumerate}
 }
 
 %%%
@@ -171,62 +173,6 @@
   \node[circle,fill=blue!20,draw=blue!50,ultra thick] (Australien) [right=1cm of Afrika,yshift=-5mm] {Australien};
   \end{tikzpicture}
 }
-  \end{center}
-}
-
-\frame{
-  \frametitle{Funktionierender Algorithmus}
-  \begin{center}
-  \begin{tikzpicture}
-  \node[rectangle,fill=blue!20,draw=blue!50,ultra
-  thick,align=center,rounded corners=3mm] (matrix) {pseudo Google
-    Matrix generieren};
-
-  % ganze Matrix
-  \node[below=of matrix,xshift=-1cm] (original){};
-  \node at (original){n};
-  \draw[->,>=stealth',very thick,green!40!black](original) ++(-175:.3cm) 
-    arc (-175:120:.3cm) --++ (195:.1cm);
-  \node[left=of original,xshift=.5cm,align=left] {Gesamt\\ mit Normierung};
-
-  % Teilmatrix
-  \node[below=of matrix,xshift=1cm] (teil10) {};
-  \node at (teil10){10};
-  \draw[->,>=stealth',very thick,blue!50!black] (teil10) ++(-175:.3cm)
-    arc (-175:120:.3cm) --++ (195:.1cm);
-  \node[right=of teil10,xshift=-.5cm,align=left] {Teil\\ ohne Normierung};
-
-  \node[below=of teil10] (gesamt1) {};
-  \node at (gesamt1) {1};
-  \draw[->,>=stealth',very thick,brown!40!black] (gesamt1) ++ (-175:.3cm)
-    arc (-175:120:.3cm) --++ (195:.1cm);
-  \node[right=of gesamt1,xshift=-.5cm,align=left] {Gesamt\\ mit Normierung};
-
-  \node[below=of gesamt1] (teilN) {};
-  \node at (teilN) {n};
-  \draw[->,>=stealth',very thick,orange!80!black] (teilN) ++ (-175:.3cm)
-    arc (-175:120:.3cm) --++ (195:.1cm);
-  \node[right=of teilN,xshift=-.5cm,align=left] {Teil\\ mit Globalnorm.};
-
-  \node[below=of teilN] (gesamtN) {};
-  \node at (gesamtN) {n};
-  \draw[->,>=stealth',very thick,green!40!black] (gesamtN) ++ (-175:.3cm)
-    arc (-175:120:.3cm) --++ (195:.1cm);
-  \node[right=of gesamtN,xshift=-.5cm,align=left] {Gesamt\\ mit Normierung};
-
-  % Verbindungen
-  \draw[->,>=stealth',thick,shorten >=.3cm,shorten <=.4cm] (matrix) ++
-    (180:1cm) to (original);
-
-  \draw[->,>=stealth',thick,shorten >=.3cm,shorten <=.4cm] (matrix) ++
-    (0:1cm) to (teil10);
-  \draw[->,>=stealth',thick,shorten >=.3cm,shorten <=.3cm] (teil10) to
-    (gesamt1);
-  \draw[->,>=stealth',thick,shorten >=.3cm,shorten <=.3cm] (gesamt1) to
-    (teilN);
-  \draw[->,>=stealth',thick,shorten >=.3cm,shorten <=.3cm] (teilN) to
-    (gesamtN);
-  \end{tikzpicture}
   \end{center}
 }
 
